@@ -13,6 +13,15 @@ export default class Item extends Component {
     }
   }
 
+  // 删除 Item
+  deleteTodo = (id) => {
+    // 使用 window.confim 获取确认对话框
+    const sure = window.confirm("确定删除吗？")
+    if (sure) {
+      this.props.deleteTodo(id)
+    }
+  }
+
   // checkbox 勾选事件
   handleCheckboxChecked = (id) => {
     return (e) => {
@@ -38,9 +47,15 @@ export default class Item extends Component {
         style={{ backgroundColor: mouse ? '#ddd' : 'white' }}
 
       >
-        <input type="checkbox" defaultChecked={done} onChange={this.handleCheckboxChecked(id)} />
+        <input type="checkbox" defaultChecked={done}
+          onChange={this.handleCheckboxChecked(id)}
+        />
         <span>{name}</span>
-        <button hidden={!mouse}>删除1</button>
+        <button hidden={!mouse}
+          // onClick={(event) => { this.deleteTodo(id) }}
+          onClick={() => { this.deleteTodo(id) }}
+
+        >删除1</button>
       </li>
     )
   }

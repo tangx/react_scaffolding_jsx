@@ -34,6 +34,17 @@ export default class App extends Component {
     this.setState({ todos: newTodos })
   }
 
+
+  deleteTodo = (id) => {
+    const { todos } = this.state
+
+    const newTodos = todos.filter((item) => {
+      return item.id !== id
+    })
+
+    this.setState({ todos: newTodos })
+  }
+
   addItem = (todoObj) => {
     // console.log("App:", data);
 
@@ -58,7 +69,10 @@ export default class App extends Component {
       <div className='App'>
         <span>TodoList</span>
         <Header addItem={this.addItem} />
-        <List todos={todos} updateTodos={this.updateTodos} />
+        <List todos={todos}
+          updateTodos={this.updateTodos}
+          deleteTodo={this.deleteTodo}
+        />
         <Footer />
       </div>
     )
