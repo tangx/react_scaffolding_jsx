@@ -6,7 +6,7 @@ export default class List extends Component {
 
 
   render() {
-    const { todos } = this.props
+    const { todos, updateTodos } = this.props
 
 
     return (
@@ -14,7 +14,7 @@ export default class List extends Component {
         <ul>
           {
             todos.map((todo) => {
-              return <Item key={todo.id} todo={todo} />
+              return <Item key={todo.id} todo={todo} updateTodos={updateTodos} />
             })
           }
 

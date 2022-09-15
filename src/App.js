@@ -18,6 +18,22 @@ export default class App extends Component {
     ]
   }
 
+  updateTodos = (id, checked) => {
+    // console.log(id, checked);
+
+    const { todos } = this.state
+
+    const newTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        // 使用 ES6 语法「复制对象字面量， 并修改某字段」
+        return { ...todo, done: checked }
+      }
+      return todo
+    })
+
+    this.setState({ todos: newTodos })
+  }
+
   addItem = (todoObj) => {
     // console.log("App:", data);
 
@@ -42,7 +58,7 @@ export default class App extends Component {
       <div className='App'>
         <span>TodoList</span>
         <Header addItem={this.addItem} />
-        <List todos={todos} />
+        <List todos={todos} updateTodos={this.updateTodos} />
         <Footer />
       </div>
     )
