@@ -9,21 +9,30 @@ import List from './components/List'
 export default class App extends Component {
 
   state = {
-    users: []
+    users: [],
+    isFirst: true,
+    isLoading: false,
+    errorMessage: '',
   }
 
   updateUser = (users) => {
     this.setState({ users: users })
   }
 
+
+  updateState = (stateObj) => {
+    this.setState(stateObj)
+  }
   render() {
 
     return (
       <div className='App'>
         <Search
           updateUser={this.updateUser}
+          updateState={this.updateState}
         />
-        <List users={this.state.users} />
+        {/* 把 state 中的所有参数传递 */}
+        <List {...this.state} />
       </div>
     )
   }
