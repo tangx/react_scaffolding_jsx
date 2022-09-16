@@ -9,6 +9,7 @@ export default class Search extends Component {
   }
 
   search = () => {
+
     const { value } = this.searchInputNode
     const { publish } = this
     publish(
