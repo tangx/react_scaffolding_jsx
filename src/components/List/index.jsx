@@ -1,9 +1,32 @@
 import React, { Component } from 'react'
 import Card from '../Card'
+import PubSub from 'pubsub-js'
 
 export default class List extends Component {
+
+
+  state = {
+    users: [],
+    isFirst: true,
+    isLoading: false,
+    errorMessage: '',
+  }
+
+  componentDidMount() {
+    this.token = PubSub.subscribe('My_Topic', this.updateState)
+  }
+  componentWillUnmount() {
+    PubSub.unsubscribe(this.token)
+  }
+
+  updateState = (_, data) => {
+    console.log("收到消息", data);
+    this.setState(data)
+  }
+
+
   render() {
-    const { users, isFirst, isLoading, errorMessage } = this.props
+    const { users, isFirst, isLoading, errorMessage } = this.state
 
     if (isFirst) {
       return (

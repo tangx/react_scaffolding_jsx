@@ -1,12 +1,17 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import PubSub from 'pubsub-js';
 
 export default class Search extends Component {
 
+  publish = (data) => {
+    PubSub.publish('My_Topic', data)
+  }
+
   search = () => {
     const { value } = this.searchInputNode
-    const { updateState } = this.props
-    updateState(
+    const { publish } = this
+    publish(
       {
         isFirst: false,
         isLoading: true,
@@ -18,7 +23,7 @@ export default class Search extends Component {
       (response) => {
         // const { items } = response.data
         // this.props.updateUser(items)
-        updateState(
+        publish(
           {
             users: response.data.items,
             isLoading: false,
@@ -28,7 +33,7 @@ export default class Search extends Component {
     ).catch(
       (error) => {
         console.log(error);
-        updateState(
+        publish(
           {
             isLoading: false,
             errorMessage: error.message,
