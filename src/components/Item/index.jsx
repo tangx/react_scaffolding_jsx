@@ -47,7 +47,16 @@ export default class Item extends Component {
         style={{ backgroundColor: mouse ? '#ddd' : 'white' }}
 
       >
-        <input type="checkbox" defaultChecked={done}
+        {
+          /* 这里有个坑，需要注意 
+            1. defaultChecked={done} 只渲染一次， 
+            2. 之后其他地方改变并不影响 item 本身显示状态变化。 但实际传入 item 数据已经变化
+              例如 checkAll 改变时， item 的显示状态不改变。
+
+          */
+        }
+        <input type="checkbox"
+          checked={done}
           onChange={this.handleCheckboxChecked(id)}
         />
         <span>{name}</span>
