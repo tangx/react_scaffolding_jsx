@@ -232,3 +232,32 @@ export default class App extends Component {
   }
 }
 ```
+
+### 文件整合优化
+
+根据实际情况， 不一定非要将 **UI组件** 与 **Container组件** 分开成多个文件。 
+也可以 **合并** 成 **一个文件**。 
+
+
+```js
+
+// 引入依赖
+import { connect } from 'react-redux'
+import React, { Component } from 'react'
+
+
+// 定义非内部组件
+class CountUI extends Component {
+  render() {
+    return (
+      <div>
+        <h3>CountUI</h3>
+      </div >
+    )
+  }
+}
+
+// 默认暴露 Container 组件
+const Count = connect(mapStateToProps, dispatchProps)(CountUI)
+export default Count
+```
