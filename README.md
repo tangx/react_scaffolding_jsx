@@ -151,3 +151,22 @@ function mapDispatchToProps(dispatch) {
 // connect 可以传递两个函数， 且必须为函数
 export default connect(mapStateToProps, mapDispatchToProps)(CountUI)
 ```
+
+### connect 函数传参优化
+
+```js
+
+/** dispatchProps 可以简单写成一个 object 对象。 如下。
+ *    1. action 函数不用带参数签名。
+ *    2. 不用专门使用 dispatch 包裹函数。
+ */
+const dispatchProps = {
+  add: createIncrementAction,
+  asyncAdd: createIncrementAsyncAction
+}
+
+
+// connect 可以传递两个函数， 且必须为函数
+// export default connect(mapStateToProps, mapDispatchToProps)(CountUI)
+export default connect(mapStateToProps, dispatchProps)(CountUI)
+```

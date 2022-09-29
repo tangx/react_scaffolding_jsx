@@ -34,22 +34,32 @@ function mapStateToProps(state) {
   }
 }
 
-// 传递操作状态的方法：
-// methods 函数传递操作方法。
-//    dispath = store.dispatch
-function mapDispatchToProps(dispatch) {
-  return {
-    add: (data) => {
-      // 通知 redux 执行加法
-      dispatch(createIncrementAction(data))
-    },
-    asyncAdd: (data) => {
-      dispatch(createIncrementAsyncAction(data, 500))
-    }
-  }
+// // 传递操作状态的方法：
+// // methods 函数传递操作方法。
+// //    dispath = store.dispatch
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     add: (data) => {
+//       // 通知 redux 执行加法
+//       dispatch(createIncrementAction(data))
+//     },
+//     asyncAdd: (data) => {
+//       dispatch(createIncrementAsyncAction(data, 500))
+//     }
+//   }
+// }
+
+
+/** dispatchProps 可以简单写成一个 object 对象。 如下。
+ *    1. action 函数不用带参数签名。
+ *    2. 不用专门使用 dispatch 包裹函数。
+ */
+const dispatchProps = {
+  add: createIncrementAction,
+  asyncAdd: createIncrementAsyncAction
 }
 
 
-
 // connect 可以传递两个函数， 且必须为函数
-export default connect(mapStateToProps, mapDispatchToProps)(CountUI)
+// export default connect(mapStateToProps, mapDispatchToProps)(CountUI)
+export default connect(mapStateToProps, dispatchProps)(CountUI)
