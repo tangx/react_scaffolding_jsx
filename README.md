@@ -102,3 +102,52 @@ $ yarn add react-redux
 
 ![](./react-redux%E6%A8%A1%E5%9E%8B%E5%9B%BE.jpg)
 
+
+1. 明确两个概念：
+    1. UI组件： 不能使用任何 redux 的 api， 只负责页面的呈现、交互等。
+    2. 容器组件： 负责和 redux 通信， 将结果交给 UI 组件。
+2. 如何创建一个容器组件： 使用 react-redux 的 connect 函数。
+    1. 如代码
+
+3. 备注： 容器组件中的 store 是通过 props 传递进去的。 而不是直接在容器中直接引用。
+
+```js
+// 引入 Count 的 UI 组件
+import CountUI from '../components/Count'
+// 引入 connect 用于连接 UI 与 redux 组件
+import { connect } from 'react-redux'
+
+import {
+  createIncrementAction,
+  createDecrementAction,
+  createIncrementAsyncAction
+} from '../redux/count_action'
+
+// 传递状态：
+// states 函数的返回值作为状态传递给了 UI 组件
+// 返回值必须是一个对象
+//   state = store.getState()
+function mapStateToProps(state) {
+  return {
+    count: state
+  }
+}
+
+// 传递操作状态的方法：
+// methods 函数传递操作方法。
+//    dispath = store.dispatch
+function mapDispatchToProps(dispatch) {
+  return {
+    add: (data) => {
+      // 通知 redux 执行加法
+      dispatch(createIncrementAction(data))
+    },
+    asyncAdd: (data) => {
+      dispatch(createIncrementAsyncAction(data, 500))
+    }
+  }
+}
+
+// connect 可以传递两个函数， 且必须为函数
+export default connect(mapStateToProps, mapDispatchToProps)(CountUI)
+```

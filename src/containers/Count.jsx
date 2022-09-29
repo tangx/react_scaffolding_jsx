@@ -28,7 +28,7 @@ export default CountContainer
 // states 函数的返回值作为状态传递给了 UI 组件
 // 返回值必须是一个对象
 //   state = store.getState()
-function stateProps(state) {
+function mapStateToProps(state) {
   return {
     count: state
   }
@@ -37,7 +37,7 @@ function stateProps(state) {
 // 传递操作状态的方法：
 // methods 函数传递操作方法。
 //    dispath = store.dispatch
-function dispatchProps(dispatch) {
+function mapDispatchToProps(dispatch) {
   return {
     add: (data) => {
       // 通知 redux 执行加法
@@ -52,4 +52,4 @@ function dispatchProps(dispatch) {
 
 
 // connect 可以传递两个函数， 且必须为函数
-export default connect(stateProps, dispatchProps)(CountUI)
+export default connect(mapStateToProps, mapDispatchToProps)(CountUI)
