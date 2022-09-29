@@ -170,3 +170,10 @@ const dispatchProps = {
 // export default connect(mapStateToProps, mapDispatchToProps)(CountUI)
 export default connect(mapStateToProps, dispatchProps)(CountUI)
 ```
+
+### 页面渲染优化
+
+使用了 `react-redux` 之后， 不用自己在 `index.js` 中使用 `store.subscribe()` 状态变化。
+
+
+### Provider

@@ -19,7 +19,7 @@ export default class Count extends Component {
 
   incrementAsync = () => {
     const { value } = this.selectNumber
-    this.props.asyncAdd(value * 1)
+    this.props.asyncAdd(value * 1, 500)
   }
 
 
