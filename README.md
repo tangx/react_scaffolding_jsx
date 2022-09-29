@@ -176,4 +176,59 @@ export default connect(mapStateToProps, dispatchProps)(CountUI)
 使用了 `react-redux` 之后， 不用自己在 `index.js` 中使用 `store.subscribe()` 状态变化。
 
 
-### Provider
+### 使用 Provider 对 store 的传递优化
+
+使用 Provider 组件后， 其所有 container 类型的子组件都可以收到 `store={store}`。
+不用在单独写了。
+因此， 通常将 Provider 放在 `index.js` 中， 最上层
+
+```js
+// index.js
+
+import store from './redux/store'
+import { Provider } from 'react-redux'
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
+// 默认
+// root.render(
+//   <React.StrictMode>
+//     <App />
+//   </React.StrictMode>
+// );
+
+// 使用 Provider 优化 store 的传递
+//  1. 使用 Provider 包裹 App 组件
+//  2. 为 Provider 传入 store={store}
+root.render(
+  <React.StrictMode>
+
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>
+);
+```
+
+在子组件中， 
+
+```js
+// App.jsx
+
+import Count from './containers/Count';
+// import store from './redux/store';
+
+
+
+export default class App extends Component {
+  render() {
+    // Count Container 不在单独传递 store={store}
+    return (
+      <div className='App'>
+        {/* <Count store={store} /> */}
+        <Count />
+      </div>
+    )
+  }
+}
+```
