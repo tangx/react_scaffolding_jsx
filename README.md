@@ -55,3 +55,39 @@ store.subscribe(() => {
 })
 ```
 
+
+## action
+
+1.  同步: action 为 `object{}` 一般对象。
+2.  异步: action 为 `function` 函数对象。
+
+store 本身只能处理 **一般对象**。 
+
+```
+Uncaught Error: Actions must be plain objects. Instead, the actual type was: 'function'. You may need to add middleware to your store setup to handle dispatching other values, such as 'redux-thunk' to handle dispatching functions. See https://redux.js.org/tutorials/fundamentals/part-4-store#middleware and https://redux.js.org/tutorials/fundamentals/part-6-async-logic#using-the-redux-thunk-middleware for examples.
+```
+如果是异步 action（函数）， 则需要使用 **中间件** `redux-thunk` 帮忙处理。
+
+```bash
+$ yarn add redux-thunk
+```
+
+
+```js
+
+// store.js
+import thunk from 'redux-thunk'
+const middlewareEnhancer = applyMiddleware(thunk)
+
+export default legacy_createStore(countReducer, middlewareEnhancer)
+
+
+// action.js
+export function createIncrementAsyncAction(data, timeout) {
+  return (dispatch) => {
+    setTimeout(() => {
+      dispatch(createIncrementAction(data))
+    }, timeout);
+  }
+}
+```
