@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
-import Count from './components/Count';
+import Count from './containers/Count';
+// import Count from './components/Count';
+import store from './redux/store';
 
 
 export default class App extends Component {
@@ -10,7 +12,7 @@ export default class App extends Component {
 
     return (
       <div className='App'>
-        <Count />
+        <Count store={store} />
       </div>
     )
   }

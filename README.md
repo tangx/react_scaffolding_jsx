@@ -91,3 +91,14 @@ export function createIncrementAsyncAction(data, timeout) {
   }
 }
 ```
+
+
+## react-redux
+
+
+```bash
+$ yarn add react-redux
+```
+
+![](./react-redux%E6%A8%A1%E5%9E%8B%E5%9B%BE.jpg)
+
