@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 // 引入 redux 的 store
 import store from '../redux/store'
 
+import { createIncrementAction, createDecrementAction } from '../redux/count_action'
+
 
 export default class Count extends Component {
 
@@ -10,18 +12,12 @@ export default class Count extends Component {
     const { value } = this.selectNumber
     // console.log("value=", value);
 
-    store.dispatch({
-      type: 'increment',
-      data: value * 1
-    })
+    store.dispatch(createIncrementAction(value * 1))
   }
 
   decrement = () => {
     const { value } = this.selectNumber
-    store.dispatch({
-      type: 'decrement',
-      data: value * 1
-    })
+    store.dispatch(createDecrementAction(value * 1))
   }
 
   incrementIfOdd = () => {

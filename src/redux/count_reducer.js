@@ -6,6 +6,7 @@
  * 3. reducer 只处理最基本的事情。
  */
 
+import { INCREAMENT, DECREMENT } from './constant'
 const initState = 1
 
 export default function countReducer(preState = initState, action) {
@@ -17,9 +18,9 @@ export default function countReducer(preState = initState, action) {
   const { type, data } = action
 
   switch (type) {
-    case 'increment':
+    case INCREAMENT:
       return preState + data
-    case 'decrement':
+    case DECREMENT:
       return preState - data
     default:
       return preState
