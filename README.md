@@ -261,3 +261,79 @@ class CountUI extends Component {
 const Count = connect(mapStateToProps, dispatchProps)(CountUI)
 export default Count
 ```
+
+## 数据共享
+
+1. 工程化目录结构， 
+    1. 将所有 action 文件放在 `redux/actions` 目录下， 文件以组件命名。 reducer 同理。
+    2. `constant.js` 和 `store.js` 使用一个即可
+
+```bash
+$ tree src/redux 
+    src/redux
+    ├── actions
+    │   ├── count.js
+    │   └── people.js
+    ├── constant.js
+    ├── reducers
+    │   ├── count.js
+    │   └── people.js
+    └── store.js
+```
+
+2. 定义一个新组件 People。 并准备 action, reducer 和 People组件。
+3. 具有多个 reducer 的时候，
+    1. 必须使用在 `redux/store.js` 中 `combineReducers` 将其合并成一个 object 对象。
+    2. 并为每个 reducer 创建一个 key 名字， 方便调用
+
+
+```js
+// 引入 thunk 帮助实现异步调用
+import thunk from 'redux-thunk'
+const middlewareEnhancer = applyMiddleware(thunk)
+
+// 引入为 count 组件服务的 reducer
+import countReducer from './reducers/count'
+import peopleReducer from './reducers/people'
+
+// 注意这里的 key 值
+const allReducers = combineReducers({
+  count: countReducer,
+  people: peopleReducer,
+})
+
+export default legacy_createStore(allReducers, middlewareEnhancer)
+```
+
+在 container 组件中使用 redux state 数据， 需要指定 key 获取
+
+```js
+// src/containers/People.jsx
+function stateProps(state) {
+  return {
+    count: state.count,
+    people: state.people
+  }
+}
+
+const dispatchProps = {
+  addUser: createPeopleAddUserAction
+}
+
+export default connect(stateProps, dispatchProps)(People)
+```
+
+4. 在 container 组件中获取 redux 数据时， 取出 **期望使用的实际状态**， 避免过度数据传递。
+
+```js
+// src/containers/Count.jsx
+
+function mapStateToProps(state) {
+  return {
+    count: state.count,
+    peopleCount: state.people.length, // 在本地就计算完成人数。 而不是在 CountUI 中计算
+  }
+}
+
+
+```

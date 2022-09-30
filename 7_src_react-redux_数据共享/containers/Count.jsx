@@ -59,7 +59,7 @@ class Count extends Component {
 function mapStateToProps(state) {
   return {
     count: state.count,
-    peopleCount: state.people.length, // 在本地就计算完成人数。 而不是在 CountUI 中计算
+    peopleCount: state.people.length,
   }
 }
 
