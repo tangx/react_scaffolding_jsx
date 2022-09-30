@@ -37,7 +37,8 @@ class Count extends Component {
   render() {
     return (
       <div>
-        <h3>当前求和值为： {this.props.count}</h3>
+        <h2>Count 组件，当前求和值为： {this.props.count}</h2>
+        <h3>下面的 People 组件总人数为: {this.props.peopleCount} </h3>
         <select ref={c => this.selectNumber = c}>
           <option value="1">1</option>
           <option value="2">2</option>
@@ -57,7 +58,8 @@ class Count extends Component {
 /** 定义 Count Container */
 function mapStateToProps(state) {
   return {
-    count: state.count
+    count: state.count,
+    peopleCount: state.people.length,
   }
 }
 

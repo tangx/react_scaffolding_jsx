@@ -3,5 +3,11 @@
  */
 
 
+// count
 export const INCREAMENT = 'increment'
 export const DECREMENT = 'decrement'
+
+
+// people
+export const PEOPLE__ADD_USER = 'add_people'
+
