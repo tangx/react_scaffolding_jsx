@@ -4,7 +4,12 @@
 
 代码地址: https://github.com/tangx/react_scaffolding_jsx/tree/redux_test
 
-## install
+
+## redux 使用
+
+![](./docs/imgs/redux-image.jpg)
+
+## 安装
 
 ```bash
 $ yarn add redux
@@ -103,8 +108,7 @@ export function createIncrementAsyncAction(data, timeout) {
 $ yarn add react-redux
 ```
 
-![](./react-redux%E6%A8%A1%E5%9E%8B%E5%9B%BE.jpg)
-
+![](./docs/imgs//react-redux%E6%A8%A1%E5%9E%8B%E5%9B%BE.jpg)
 
 1. 明确两个概念：
     1. UI组件： 不能使用任何 redux 的 api， 只负责页面的呈现、交互等。
