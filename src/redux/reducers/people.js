@@ -1,13 +1,13 @@
 
 import { PEOPLE__ADD_USER } from '../constant'
 
-const defaultuser = {
-  name: "zhagnsan",
-  age: 20,
-}
-const initState = [defaultuser]
+// const defaultuser = {
+//   name: "zhagnsan",
+//   age: 20,
+// }
+// const initState = [defaultuser]
 
-// const initState = []
+const initState = []
 export default function peopleReducer(preState = initState, action) {
   const { type, data } = action
 

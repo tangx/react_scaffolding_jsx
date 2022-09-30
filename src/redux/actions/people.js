@@ -1,12 +1,9 @@
 
 import { PEOPLE__ADD_USER } from "../constant"
 
-export function createPeopleAddUserAction(name, age) {
+export function createPeopleAddUserAction(peopleObj) {
   return {
     type: PEOPLE__ADD_USER,
-    data: {
-      name: name,
-      age: age,
-    }
+    data: peopleObj
   }
 }

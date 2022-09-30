@@ -2,6 +2,7 @@ import React from 'react'
 import { createRef } from 'react'
 import { connect } from 'react-redux'
 import { createPeopleAddUserAction } from '../redux/actions/people'
+import { nanoid } from 'nanoid'
 
 function People(props) {
   const nameNode = createRef()
@@ -15,7 +16,13 @@ function People(props) {
     const age = ageNode.current.value
     // console.log("@@2", name, age);
 
-    props.addUser(name, age)
+    const peopleObj = {
+      id: nanoid(),
+      name: name,
+      age: age,
+    }
+    console.log(peopleObj);
+    props.addUser(peopleObj)
 
     nameNode.current.value = ''
     ageNode.current.value = ''
@@ -35,7 +42,7 @@ function People(props) {
         props.people.map(
           (p) => {
             return (
-              <li>姓名: {p.name}, 年龄: {p.age}</li>
+              <li key={p.id}>姓名: {p.name}, 年龄: {p.age}</li>
             )
           }
         )
