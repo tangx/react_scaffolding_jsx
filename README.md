@@ -384,3 +384,34 @@ Chrome extension: [Redux DevTools](https://chrome.google.com/webstore/detail/red
 ```bash
 $ yarn add redux-devtools-extension
 ```
+
+
+在使用开发开发者工具时
+
+```js
+
+// 引入为 count 组件服务的 reducer
+import countReducer from './reducers/count'
+import peopleReducer from './reducers/people'
+
+const allReducers = combineReducers({
+  count: countReducer,
+  people: peopleReducer,
+})
+
+
+import thunk from 'redux-thunk'
+const middlewareEnhancer = applyMiddleware(thunk)
+
+/** 不使用 redux 开发者工具 */
+// export default legacy_createStore(allReducers, middlewareEnhancer)
+
+/** 使用 redux 开发者工具， 需要将中间件作为 参数 传递给 composeWithDevTools */
+// 引入 redux 开发者工具， 这是一个插件
+import { composeWithDevTools } from 'redux-devtools-extension'
+
+export default legacy_createStore(
+  allReducers,
+  composeWithDevTools(middlewareEnhancer),
+)
+```
