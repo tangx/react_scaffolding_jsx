@@ -337,3 +337,43 @@ function mapStateToProps(state) {
 
 
 ```
+
+## 纯函数
+
+**纯函数** 是一类特别的函数， 只要是同样的输入（实际参数）， 就必定得到同样的数据（返回值）。
+
+纯函数必须遵守一下规则
+
+1. 不得修改数据
+2. 不会产生任何副作用， 例如网络请求， 输入和输出设备。
+3. 不能调用 `Date.now() 或者 Math.random()` 等不纯的方法。
+
+**redux 的 `reducer`** 必须是一个纯函数。
+
+
+```ts
+// 纯函数
+function pure(n: number): number{
+    return n*3
+}
+
+
+// 非纯函数
+function nonPure(arr: number[],n:number): number[]{
+    arr.shift(n)
+    return arr
+}
+```
+
+
+## redux 开发者工具
+
+在浏览器中安装扩展
+
+Chrome extension: [Redux DevTools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd/related?utm_source=chrome-ntp-icon)
+
+在项目中安装工具扩展
+
+```bash
+$ yarn add redux-devtools-extension
+```
