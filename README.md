@@ -415,3 +415,62 @@ export default legacy_createStore(
   composeWithDevTools(middlewareEnhancer),
 )
 ```
+
+
+## 最后的优化
+
+1. 所有变量名要 **尽量** 规范。 尽量触发对象简写形式， 保证 **变量名** 统一。
+
+```ts
+const abc:number = 1
+const def:number = 2
+const obj={
+    // 完整形式
+    Abc: abc, // 别名: 真实名字
+    abc: abc, // 别名与真实名字相同
+
+    // 简写形式： 等同于 def:def,
+    def,  
+}
+
+console.log(obj.Abc) // 1
+console.log(obj.abc) // 1
+console.log(obj.def) // 2
+```
+
+2. `redux/reducers/` 目录中， 创建 `index.js` 文件， 专门用于汇总并暴露所有的 reducer。
+
+```js
+// redux/reducers/index.js
+
+/** 
+ * reducers/index.js 专门用于组合所有暴露的 reducer。 
+ *    放在 reducers 目录下， 作为入口文件。 统一管理。
+ */
+import count from './count'
+import people from './people'
+
+import { combineReducers } from 'redux'
+
+export default combineReducers(
+  {
+    count,
+    people,
+  }
+)
+```
+
+在 `store.js` 文件中，  直接 import 组装好的所有 reducers
+
+```js
+// redux/store.js
+
+// 不在 store.js 里面管理， 而是通过引入所有 reducers
+import reducers from './reducers'
+
+import thunk from 'redux-thunk'
+const middlewareEnhancer = applyMiddleware(thunk)
+
+/** 不使用 redux 开发者工具 */
+export default legacy_createStore(allReducers, middlewareEnhancer)
+```

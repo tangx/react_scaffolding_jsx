@@ -9,28 +9,26 @@ import { legacy_createStore, applyMiddleware, combineReducers } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
 
-// 引入为 count 组件服务的 reducer
-import countReducer from './reducers/count'
-import peopleReducer from './reducers/people'
+// // 引入为 count 组件服务的 reducer
+// import countReducer from './reducers/count'
+// import peopleReducer from './reducers/people'
 
+// const allReducers = combineReducers({
+//   count: countReducer,
+//   people: peopleReducer,
+// })
 
-/** 合并 export */
-// const store = configureStore()
-// export default store
+// 不在 store.js 里面管理， 而是通过引入所有 reducers
+import reducers from './reducers'
 
 import thunk from 'redux-thunk'
 const middlewareEnhancer = applyMiddleware(thunk)
-
-const allReducers = combineReducers({
-  count: countReducer,
-  people: peopleReducer,
-})
 
 /** 不使用 redux 开发者工具 */
 // export default legacy_createStore(allReducers, middlewareEnhancer)
 
 /** 使用 redux 开发者工具， 需要将中间件作为 参数 传递给 composeWithDevTools */
 export default legacy_createStore(
-  allReducers,
+  reducers,
   composeWithDevTools(middlewareEnhancer),
 )
