@@ -1,5 +1,8 @@
 # redux demo
 
+直接看 [react-redux](#react-redux) 的用法
+
+代码地址: https://github.com/tangx/react_scaffolding_jsx/tree/redux_test
 
 ## install
 
