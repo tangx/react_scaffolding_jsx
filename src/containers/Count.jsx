@@ -1,53 +1,65 @@
 
-// 引入 Count 的 UI 组件
-import CountUI from '../components/Count'
-
-/**
- * 通过父组件通过 props 传入
- * 
- * 引入 redux store
-import store from '../redux/store'
- */
-
 // 引入 connect 用于连接 UI 与 redux 组件
 import { connect } from 'react-redux'
+
+import React, { Component } from 'react'
 
 import {
   createIncrementAction,
   createDecrementAction,
   createIncrementAsyncAction
-} from '../redux/count_action'
-
-/*
-const CountContainer = connect()(CountUI)
-export default CountContainer
-*/
+} from '../redux/actions/count'
 
 
-// 传递状态：
-// states 函数的返回值作为状态传递给了 UI 组件
-// 返回值必须是一个对象
-//   state = store.getState()
-function mapStateToProps(state) {
-  return {
-    count: state
+
+/** 定义 Count UI， 且不导出 */
+class Count extends Component {
+
+  increment = () => {
+    const { value } = this.selectNumber
+    this.props.add(value * 1)
+  }
+
+  decrement = () => {
+    const { value } = this.selectNumber
+  }
+
+  incrementIfOdd = () => {
+    const { value } = this.selectNumber
+  }
+
+  incrementAsync = () => {
+    const { value } = this.selectNumber
+    this.props.asyncAdd(value * 1, 500)
+  }
+
+
+  render() {
+    return (
+      <div>
+        <h3>当前求和值为： {this.props.count}</h3>
+        <select ref={c => this.selectNumber = c}>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
+
+        <button onClick={this.increment}>加</button>
+        <button onClick={this.decrement}>减</button>
+        <button onClick={this.incrementIfOdd}>当前和为奇数时， 加</button>
+        <button onClick={this.incrementAsync}>延时 1秒， 加</button>
+      </div >
+    )
   }
 }
 
-// // 传递操作状态的方法：
-// // methods 函数传递操作方法。
-// //    dispath = store.dispatch
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     add: (data) => {
-//       // 通知 redux 执行加法
-//       dispatch(createIncrementAction(data))
-//     },
-//     asyncAdd: (data) => {
-//       dispatch(createIncrementAsyncAction(data, 500))
-//     }
-//   }
-// }
+
+/** 定义 Count Container */
+function mapStateToProps(state) {
+  return {
+    count: state.count
+  }
+}
 
 
 /** dispatchProps 可以简单写成一个 object 对象。 如下。
@@ -59,7 +71,8 @@ const dispatchProps = {
   asyncAdd: createIncrementAsyncAction
 }
 
-
-// connect 可以传递两个函数， 且必须为函数
-// export default connect(mapStateToProps, mapDispatchToProps)(CountUI)
-export default connect(mapStateToProps, dispatchProps)(CountUI)
+/**
+ * connect 可以传递两个函数， 且必须为函数
+ * export default connect(mapStateToProps, mapDispatchToProps)(CountUI)
+ */
+export default connect(mapStateToProps, dispatchProps)(Count)

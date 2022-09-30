@@ -4,7 +4,7 @@
 
 // import store from './store'
 
-import { INCREAMENT, DECREMENT } from './constant'
+import { INCREAMENT, DECREMENT } from '../constant'
 
 export function createIncrementAction(data) {
   return {

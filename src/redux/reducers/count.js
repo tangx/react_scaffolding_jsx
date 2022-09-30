@@ -6,7 +6,7 @@
  * 3. reducer 只处理最基本的事情。
  */
 
-import { INCREAMENT, DECREMENT } from './constant'
+import { INCREAMENT, DECREMENT } from '../constant'
 const initState = 1
 
 export default function countReducer(preState = initState, action) {

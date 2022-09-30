@@ -3,11 +3,11 @@
 
 // 引入 redux 核心组件，  创建 store 
 // import { configureStore } from 'redux'
-import { legacy_createStore, applyMiddleware, } from 'redux'
+import { legacy_createStore, applyMiddleware, combineReducers } from 'redux'
 
 
 // 引入为 count 组件服务的 reducer
-import countReducer from './count_reducer'
+import countReducer from './reducers/count'
 
 
 /** 合并 export */
@@ -17,4 +17,8 @@ import countReducer from './count_reducer'
 import thunk from 'redux-thunk'
 const middlewareEnhancer = applyMiddleware(thunk)
 
-export default legacy_createStore(countReducer, middlewareEnhancer)
+const allReducers = combineReducers({
+  count: countReducer
+})
+
+export default legacy_createStore(allReducers, middlewareEnhancer)
